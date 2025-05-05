@@ -1,7 +1,7 @@
 import { useState, useRef } from 'react'
 import { motion, AnimatePresence, useInView } from 'framer-motion'
 import { Badge } from './ui/badge'
-import { ExternalLink, Github, Maximize } from 'lucide-react'
+import { ExternalLink, Github, Maximize, X } from 'lucide-react'
 import { Dialog, DialogContent, DialogTrigger } from './ui/dialog'
 import Ecommerce from "../images/Ecommerce.png";
 import FitChain from "../images/FitChain.png";
@@ -16,6 +16,7 @@ function Projects() {
   const isInView = useInView(ref, { once: true, amount: 0.1 })
   const [filter, setFilter] = useState('all')
   const [selectedProject, setSelectedProject] = useState(null)
+  const [activeProjectId, setActiveProjectId] = useState(null)
   
   const projects = [
     {
@@ -120,7 +121,7 @@ function Projects() {
         "Notification system"
       ]
     },
-        {
+    {
       id: 7,
       title: "Course Selling Platform",
       description: "A comprehensive online learning platform allowing instructors to create and sell courses with interactive content, quizzes, and certification.",
@@ -148,6 +149,14 @@ function Projects() {
     { id: 'web', label: 'Web Apps' },
     { id: 'dashboard', label: 'Dashboards' },
   ]
+
+  const toggleProjectActions = (id) => {
+    if (activeProjectId === id) {
+      setActiveProjectId(null)
+    } else {
+      setActiveProjectId(id)
+    }
+  }
   
   return (
     <section id="projects" className="py-20 md:py-32 bg-muted/30">
@@ -213,13 +222,18 @@ function Projects() {
                   transition={{ duration: 0.5, delay: 0.1 * index }}
                   className="bg-card border border-border rounded-lg overflow-hidden group"
                 >
-                  <div className="relative overflow-hidden">
+                  <div 
+                    className="relative overflow-hidden"
+                    onClick={() => toggleProjectActions(project.id)}
+                  >
                     <img 
                       src={project.image} 
                       alt={project.title} 
                       className="w-full h-56 object-cover object-center transition-transform duration-500 group-hover:scale-110"
                     />
-                    <div className="absolute inset-0 bg-black/70 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center gap-4">
+                    
+                    {/* Desktop - hover controls */}
+                    <div className="absolute inset-0 bg-black/70 opacity-0 group-hover:opacity-100 transition-opacity duration-300 hidden md:flex items-center justify-center gap-4 z-10">
                       <motion.a
                         href={project.demoLink}
                         target="_blank"
@@ -227,6 +241,7 @@ function Projects() {
                         className="p-3 bg-primary rounded-full text-primary-foreground"
                         whileHover={{ scale: 1.1 }}
                         whileTap={{ scale: 0.9 }}
+                        onClick={(e) => e.stopPropagation()}
                       >
                         <ExternalLink className="w-5 h-5" />
                       </motion.a>
@@ -237,13 +252,17 @@ function Projects() {
                         className="p-3 bg-card border border-border rounded-full"
                         whileHover={{ scale: 1.1 }}
                         whileTap={{ scale: 0.9 }}
+                        onClick={(e) => e.stopPropagation()}
                       >
                         <Github className="w-5 h-5" />
                       </motion.a>
                       <Dialog>
                         <DialogTrigger asChild>
                           <motion.button
-                            onClick={() => setSelectedProject(project)}
+                            onClick={(e) => {
+                              e.stopPropagation();
+                              setSelectedProject(project);
+                            }}
                             className="p-3 bg-card border border-border rounded-full"
                             whileHover={{ scale: 1.1 }}
                             whileTap={{ scale: 0.9 }}
@@ -302,6 +321,141 @@ function Projects() {
                           </div>
                         </DialogContent>
                       </Dialog>
+                    </div>
+                    
+                    {/* Mobile - tap to show overlay with controls */}
+                    <AnimatePresence>
+                      {activeProjectId === project.id && (
+                        <motion.div 
+                          className="absolute inset-0 bg-black/70 md:hidden flex flex-col items-center justify-center z-10"
+                          initial={{ opacity: 0 }}
+                          animate={{ opacity: 1 }}
+                          exit={{ opacity: 0 }}
+                        >
+                          <motion.button
+                            onClick={(e) => {
+                              e.stopPropagation();
+                              setActiveProjectId(null);
+                            }}
+                            className="absolute top-2 right-2 p-2 bg-card/40 backdrop-blur-sm rounded-full"
+                            whileTap={{ scale: 0.9 }}
+                          >
+                            <X className="w-5 h-5" />
+                          </motion.button>
+                          
+                          <div className="flex items-center justify-center gap-4 mb-4">
+                            <motion.a
+                              href={project.demoLink}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              className="p-3 bg-primary rounded-full text-primary-foreground"
+                              whileHover={{ scale: 1.1 }}
+                              whileTap={{ scale: 0.9 }}
+                              onClick={(e) => e.stopPropagation()}
+                            >
+                              <ExternalLink className="w-5 h-5" />
+                            </motion.a>
+                            <motion.a
+                              href={project.githubLink}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              className="p-3 bg-card border border-border rounded-full"
+                              whileHover={{ scale: 1.1 }}
+                              whileTap={{ scale: 0.9 }}
+                              onClick={(e) => e.stopPropagation()}
+                            >
+                              <Github className="w-5 h-5" />
+                            </motion.a>
+                            <Dialog>
+                              <DialogTrigger asChild>
+                                <motion.button
+                                  onClick={(e) => {
+                                    e.stopPropagation();
+                                    setSelectedProject(project);
+                                  }}
+                                  className="p-3 bg-card border border-border rounded-full"
+                                  whileHover={{ scale: 1.1 }}
+                                  whileTap={{ scale: 0.9 }}
+                                >
+                                  <Maximize className="w-5 h-5" />
+                                </motion.button>
+                              </DialogTrigger>
+                              <DialogContent className="sm:max-w-3xl">
+                                {/* Dialog content remains the same */}
+                                <div className="grid md:grid-cols-2 gap-6">
+                                  <div>
+                                    <img 
+                                      src={selectedProject?.image || project.image} 
+                                      alt={selectedProject?.title || project.title} 
+                                      className="w-full h-auto rounded-lg"
+                                    />
+                                  </div>
+                                  <div>
+                                    <h3 className="text-2xl font-bold mb-2">
+                                      {selectedProject?.title || project.title}
+                                    </h3>
+                                    <p className="text-muted-foreground mb-4">
+                                      {selectedProject?.description || project.description}
+                                    </p>
+                                    <div className="mb-4">
+                                      <h4 className="font-semibold mb-2">Features:</h4>
+                                      <ul className="list-disc pl-5 space-y-1 text-muted-foreground">
+                                        {(selectedProject?.features || project.features).map((feature, i) => (
+                                          <li key={i}>{feature}</li>
+                                        ))}
+                                      </ul>
+                                    </div>
+                                    <div className="flex flex-wrap gap-2 mb-6">
+                                      {(selectedProject?.tags || project.tags).map((tag) => (
+                                        <Badge key={tag} variant="secondary">{tag}</Badge>
+                                      ))}
+                                    </div>
+                                    <div className="flex gap-4">
+                                      <a 
+                                        href={selectedProject?.demoLink || project.demoLink} 
+                                        target="_blank" 
+                                        rel="noopener noreferrer"
+                                        className="bg-primary text-primary-foreground px-4 py-2 rounded-md flex items-center gap-2 text-sm"
+                                      >
+                                        <ExternalLink className="w-4 h-4" /> Live Demo
+                                      </a>
+                                      <a 
+                                        href={selectedProject?.githubLink || project.githubLink} 
+                                        target="_blank" 
+                                        rel="noopener noreferrer"
+                                        className="bg-card border border-border px-4 py-2 rounded-md flex items-center gap-2 text-sm"
+                                      >
+                                        <Github className="w-4 h-4" /> View Code
+                                      </a>
+                                    </div>
+                                  </div>
+                                </div>
+                              </DialogContent>
+                            </Dialog>
+                          </div>
+                          
+                          <div className="px-6 text-center">
+                            <h3 className="text-lg font-bold text-white mb-2">{project.title}</h3>
+                            <div className="flex justify-center flex-wrap gap-2 mb-2">
+                              {project.tags.slice(0, 3).map((tag) => (
+                                <Badge key={tag} variant="secondary" className="text-xs">{tag}</Badge>
+                              ))}
+                              {project.tags.length > 3 && (
+                                <Badge variant="outline" className="text-xs">+{project.tags.length - 3}</Badge>
+                              )}
+                            </div>
+                          </div>
+                        </motion.div>
+                      )}
+                    </AnimatePresence>
+                    
+                    {/* Mobile tap indicator */}
+                    <div className="absolute bottom-3 right-3 bg-primary rounded-full p-1 md:hidden">
+                      <motion.div 
+                        animate={{ scale: [1, 1.2, 1] }}
+                        transition={{ repeat: Infinity, duration: 1.5 }}
+                        className="w-3 h-3 bg-white rounded-full"
+                      />
                     </div>
                   </div>
                   <div className="p-6">
