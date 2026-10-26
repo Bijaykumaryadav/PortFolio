@@ -66,20 +66,18 @@ function About() {
               transition={{ duration: 0.5, delay: 0.3 }}
             >
               <h3 className="text-2xl font-bold mb-4">
-                Full Stack Developer
+                Full Stack Developer & Technical Support
               </h3>
               <p className="text-muted-foreground mb-6">
-                I'm a passionate full stack developer with more than 6 month of freelancing
-                experience crafting beautiful, functional, and accessible user
-                interfaces. My journey in web development began when I
-                discovered the perfect balance between logical problem-solving
-                and creative expression.
+                I'm a full stack developer with freelance experience building
+                responsive web applications and maintaining live projects. I
+                currently work in technical support at Megatech in Putalisadak,
+                Kathmandu, helping users and maintaining office IT systems.
               </p>
               <p className="text-muted-foreground mb-6">
-                Today, I specialize in building modern web applications using
-                MERN along with shad cn and tailwind css. I'm
-                particularly passionate about animations and micro-interactions
-                that elevate the user experience.
+                My development work includes React interfaces, REST API
+                integration, and full-stack applications. My support work spans
+                hardware, software, networking, and CCTV troubleshooting.
               </p>
 
               <div className="grid grid-cols-2 gap-4 mb-8">
@@ -93,7 +91,7 @@ function About() {
                 </div>
                 <div>
                   <h4 className="font-semibold mb-2">Location:</h4>
-                  <p className="text-muted-foreground">Off-Sarjapura road,Bangalore</p>
+                  <p className="text-muted-foreground">Kathmandu, Nepal</p>
                 </div>
                 <div>
                   <h4 className="font-semibold mb-2">Availability:</h4>

@@ -161,9 +161,8 @@ function Hero() {
           transition={{ duration: 0.5, delay: 0.6 }}
           className="text-base md:text-xl text-muted-foreground max-w-2xl mx-auto mb-10"
         >
-          Freelance Full Stack Developer with more than 6 months of experience specializing in the MERN stack (MongoDB, Express.js, 
-          React, Node.js). Passionate about building scalable, user-friendly web applications that solve real-world problems and 
-          drive business growth.
+          Full Stack Developer with freelance experience building web applications using React, Node.js, and REST APIs.
+          Currently working in technical support at Megatech in Putalisadak, Kathmandu.
         </motion.p>
         
         <motion.div

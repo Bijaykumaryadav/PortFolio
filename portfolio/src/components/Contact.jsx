@@ -117,13 +117,13 @@ function Contact() {
     {
       icon: <Phone className="w-5 h-5" />,
       title: "Phone",
-      value: "+91 7829574362",
-      link: "tel:+917829574362" // Fixed phone link format
+      value: "+977 9804056716",
+      link: "tel:+9779804056716"
     },
     {
       icon: <MapPin className="w-5 h-5" />,
       title: "Location",
-      value: "Off-Sarjapura Road, Bangalore",
+      value: "Kathmandu, Nepal",
       link: null
     }
   ]

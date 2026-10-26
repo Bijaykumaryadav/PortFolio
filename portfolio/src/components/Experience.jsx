@@ -11,15 +11,29 @@ function Experience() {
   const workExperience = [
     {
       id: 1,
+      title: "Technical Support",
+      company: "Megatech Group Pvt. Ltd.",
+      location: "Putalisadak, Kathmandu",
+      period: "Present",
+      description: "Provide day-to-day technical support for users and maintain office IT equipment and systems.",
+      highlights: [
+        "Diagnose hardware, software, Windows, printer, and office equipment issues",
+        "Install, configure, and maintain computers, laptops, printers, and user accounts",
+        "Troubleshoot LAN, Wi-Fi, and internet connectivity, including network cabling and testing",
+        "Install and troubleshoot CCTV cameras and DVR/NVR systems"
+      ]
+    },
+    {
+      id: 2,
       title: "Freelance Full Stack Developer",
       company: "Self-employed",
       location: "Remote",
-      period: "July 2024 - Present",
-      description: "Providing comprehensive full stack development services for various clients across industries. Delivering end-to-end solutions focusing on responsive design, robust backend architecture, and exceptional user experiences.",
+      period: "Jan 2024 - Present",
+      description: "Build and maintain client and independent web applications, covering responsive interfaces, API integration, and ongoing technical maintenance.",
       highlights: [
-        "Developed custom web applications with React frontend and Node.js backend",
-        "Created scalable database solutions using MongoDB and PostgreSQL",
-        "Implemented CI/CD pipelines for automated testing and deployment"
+        "Develop responsive frontend experiences using React and modern JavaScript",
+        "Integrate frontend applications with REST APIs and backend services",
+        "Maintain Sidha Reporting, a live full-stack news website"
       ]
     }
   ]
